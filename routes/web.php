@@ -14,11 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('news/create', 'Admin\NewsController@add');
+Route::group(['prefix' => 'admin', 'middleware'=>'auth'], function() {//prefixはadminから始まるURLのグループ！！
+    Route::get('news/create', 'Admin\NewsController@add');//news/createのURLにAdminのフォルダのnewscontroller
     Route::get('profile/create','Admin\ProfileController@add');
     Route::get('profile/edit','Admin\ProfileController@edit');
 });
-
+   
 Route::get('XXX', 'AAAController@bbb');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
